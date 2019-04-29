@@ -83,6 +83,7 @@ func (s *targetScraper) scrape(ctx context.Context, wr io.Writer) error {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
+	fmt.Println(r.RequestURI)
 	metricsURL := r.URL.Query().Get("proxy")
 	if metricsURL == "" {
 		w.WriteHeader(404)
@@ -110,7 +111,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func serveHTTP(addr string) error {
 
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/metrics", handler)
 
 	go func() {
 		fmt.Println("Start listen:", addr)
