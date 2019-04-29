@@ -92,8 +92,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Not Found(Empty proxy argument)")
 		return
 	}
-	metricsURL = strings.ReplaceAll(metricsURL, ":80", "")
-	metricsURL = strings.ReplaceAll(metricsURL, ":443", "")
+	metricsURL = strings.Replace(metricsURL, ":80", "", -1)
+	metricsURL = strings.Replace(metricsURL, ":443", "", -1)
 	tc := targetScraper{
 		URL: metricsURL,
 	}
