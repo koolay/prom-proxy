@@ -1,4 +1,4 @@
-gackage main
+package main
 
 import (
 	"compress/gzip"
