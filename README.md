@@ -3,7 +3,7 @@ http proxy for prometheus metrics api
 
 ## Why?
 
-prometheus can not work when target api proxy by HAProxy.
+prometheus can not scrape backend by `HAProxy` OR `HTTPS`.
 
 
 ## How to work
@@ -16,11 +16,9 @@ prometheus can not work when target api proxy by HAProxy.
 ```yaml
 
  - job_name: 'myapp'
-
     scrape_interval: 10s
-    metrics_path: "/"
-    params:
-      proxy: ['https://myapp.com/api/metrics']
+    metrics_path: "/metrics"
+    proxy_url: "http://prom-proxy:8111"
 
     static_configs:
          - targets: ['127.0.0.1:8111']
