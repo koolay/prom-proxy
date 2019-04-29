@@ -25,10 +25,11 @@ type ErrResponse struct {
 	HTTPStatus string
 	Code       int
 	Text       string
+	URL        string
 }
 
 func (e ErrResponse) Error() string {
-	return fmt.Sprintf("Response Error: http status: %s, text: %s", e.HTTPStatus, e.Text)
+	return fmt.Sprintf("Response Error: URL: %s\n http status: %s\n, text: %s\n", e.URL, e.HTTPStatus, e.Text)
 }
 
 func (s *targetScraper) scrape(ctx context.Context, wr io.Writer) error {
@@ -63,6 +64,7 @@ func (s *targetScraper) scrape(ctx context.Context, wr io.Writer) error {
 			Code:       resp.StatusCode,
 			HTTPStatus: resp.Status,
 			Text:       text,
+			URL:        s.URL,
 		}
 	}
 	if resp.Header.Get("Content-Encoding") != "gzip" {
