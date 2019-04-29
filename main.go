@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"time"
 )
 
@@ -91,6 +92,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Not Found(Empty proxy argument)")
 		return
 	}
+	metricsURL = strings.ReplaceAll(metricsURL, ":80", "")
+	metricsURL = strings.ReplaceAll(metricsURL, ":443", "")
 	tc := targetScraper{
 		URL: metricsURL,
 	}
