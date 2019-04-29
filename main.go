@@ -42,7 +42,7 @@ func (s *targetScraper) scrape(ctx context.Context, wr io.Writer) error {
 	req.Header.Add("Accept", acceptHeader)
 	req.Header.Add("Accept-Encoding", "gzip")
 	req.Header.Set("User-Agent", userAgentHeader)
-	req.Header.Set("X-Prometheus-Scrape-Timeout-Seconds", fmt.Sprintf("%f", 10))
+	req.Header.Set("X-Prometheus-Scrape-Timeout-Seconds", fmt.Sprintf("%d", 10))
 	client := &http.Client{}
 
 	resp, err := client.Do(req)
@@ -83,8 +83,7 @@ func (s *targetScraper) scrape(ctx context.Context, wr io.Writer) error {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println(r.RequestURI)
-	metricsURL := r.URL.Query().Get("proxy")
+	metricsURL := r.RequestURI
 	if metricsURL == "" {
 		w.WriteHeader(404)
 		fmt.Fprintf(w, "Not Found(Empty proxy argument)")
