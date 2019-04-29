@@ -1,4 +1,4 @@
-package main
+gackage main
 
 import (
 	"compress/gzip"
@@ -112,6 +112,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func serveHTTP(addr string) error {
 
 	http.HandleFunc("/metrics", handler)
+	http.HandleFunc("/api/metrics", handler)
+	http.HandleFunc("/proc/metrics", handler)
 
 	go func() {
 		fmt.Println("Start listen:", addr)
